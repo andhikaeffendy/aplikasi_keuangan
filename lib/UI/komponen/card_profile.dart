@@ -22,25 +22,26 @@ class _CardProfileState extends State<CardProfile> {
           ),
         ],
       ),
-      margin: EdgeInsets.only(left: 32, right: 32),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      margin: EdgeInsets.symmetric(horizontal: setWidth(32)),
+      padding: EdgeInsets.symmetric(
+          horizontal: setWidth(16), vertical: setHeight(32)),
       child: Column(
         children: [
-          textFormFieldCustom("Nama Akun", "Toko ABC"),
+          textFormFieldCustom("Nama Akun", "Bumdes"),
           SizedBox(
-            height: 16,
+            height: setHeight(16),
           ),
-          textFormFieldCustom("Email", "AndhikaEffendy14@gmail.com"),
+          textFormFieldCustom("Email", currentUser.email!),
           SizedBox(
-            height: 16,
+            height: setHeight(16),
           ),
           textFormFieldCustom("Nomor Ponsel", "+6282198113362"),
           SizedBox(
-            height: 16,
+            height: setHeight(16),
           ),
           textFormFieldCustom("Password", "andhika123"),
           SizedBox(
-            height: 16,
+            height: setHeight(16),
           ),
         ],
       ),

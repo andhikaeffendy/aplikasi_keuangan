@@ -1,22 +1,14 @@
-import 'package:applikasi_keuangan/bloc/navigator_bloc_bloc.dart';
+import 'package:applikasi_keuangan/controller/menu_controller.dart';
 import 'package:applikasi_keuangan/global/variable.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
-class MenuItem extends StatefulWidget {
-  const MenuItem({Key? key}) : super(key: key);
-
-  @override
-  _MenuItemState createState() => _MenuItemState();
-}
-
-class _MenuItemState extends State<MenuItem> {
+class MenuItem extends GetView<MenuController> {
   @override
   Widget build(BuildContext context) {
-    var bloc = BlocProvider.of<NavigatorBlocBloc>(context);
     return Container(
-      height: 83,
+      height: setHeight(83),
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -24,78 +16,79 @@ class _MenuItemState extends State<MenuItem> {
         children: [
           MaterialButton(
             onPressed: () {
-              bloc.add(OnSelectedPage(0));
+              controller.changeBottomPage(0);
             },
-            minWidth: 25,
+            minWidth: setWidth(25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   "assets/laporan.png",
-                  width: 25,
+                  width: setWidth(25),
                 ),
-                Txt(
-                  "Laporan",
-                  style: CustomStyle.textBottomNavigation,
-                )
+                controller.selectedIndex == 0
+                    ? Txt(
+                        "Bumdes",
+                        style: CustomStyle.textBottomNavigation.clone()
+                          ..textColor(appBarColor),
+                      )
+                    : Txt(
+                        "Bumdes",
+                        style: CustomStyle.textBottomNavigation,
+                      )
               ],
             ),
           ),
           MaterialButton(
             onPressed: () {
-              bloc.add(OnSelectedPage(1));
+              controller.changeBottomPage(1);
             },
-            minWidth: 25,
+            minWidth: setWidth(25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   "assets/transaksi.png",
-                  width: 25,
+                  width: setWidth(25),
                 ),
-                Txt(
-                  "Transaksi",
-                  style: CustomStyle.textBottomNavigation,
-                )
+                controller.selectedIndex == 1
+                    ? Txt(
+                        "Riwayat",
+                        style: CustomStyle.textBottomNavigation.clone()
+                          ..textColor(appBarColor),
+                      )
+                    : Txt(
+                        "Riwayat",
+                        style: CustomStyle.textBottomNavigation,
+                      )
               ],
             ),
           ),
           MaterialButton(
             onPressed: () {
-              bloc.add(OnSelectedPage(2));
+              controller.changeBottomPage(2);
             },
-            minWidth: 25,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  "assets/tagihan.png",
-                  width: 25,
-                ),
-                Txt(
-                  "Tagihan",
-                  style: CustomStyle.textBottomNavigation,
-                )
-              ],
-            ),
-          ),
-          MaterialButton(
-            onPressed: () {
-              bloc.add(OnSelectedPage(3));
-            },
-            minWidth: 25,
+            minWidth: setWidth(25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   Icons.person_outline,
-                  color: txtHintColor,
-                  size: 25,
+                  color: controller.selectedIndex == 2
+                      ? appBarColor
+                      : txtHintColor,
+                  size: setRadius(25),
                 ),
-                Txt(
-                  "Profile",
-                  style: CustomStyle.textBottomNavigation,
-                )
+                controller.selectedIndex == 2
+                    ? Txt(
+                        "Profile",
+                        style: CustomStyle.textBottomNavigation.clone()
+                          ..textColor(appBarColor),
+                      )
+                    : Txt(
+                        "Profile",
+                        style: CustomStyle.textBottomNavigation,
+                      )
               ],
             ),
           )

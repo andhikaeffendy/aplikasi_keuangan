@@ -1,8 +1,9 @@
 import 'package:applikasi_keuangan/UI/komponen/card_profile.dart';
+import 'package:applikasi_keuangan/controller/profile_controller.dart';
 import 'package:applikasi_keuangan/global/variable.dart';
-import 'package:applikasi_keuangan/routes/routes.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -12,8 +13,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return GetBuilder<ProfileController>(
+      init: ProfileController(),
+      builder: (controller) => Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           actions: [
@@ -59,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 8,
                 ),
                 Txt(
-                  "Toko ABC",
+                  "Bumdes",
                   style: CustomStyle.txtStyle.clone()..bold(),
                 ),
                 SizedBox(
@@ -78,7 +80,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 InkWell(
                   onTap: () {
-                    nextPage(context, RouteGenerator.loginPage);
+                    controller.sessionLogout(context);
                   },
                   child: customButton("LOG OUT"),
                 )

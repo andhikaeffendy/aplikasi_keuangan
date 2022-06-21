@@ -16,17 +16,17 @@ class _LaporanViewState extends State<LaporanView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        LaporanCard(title: "Untung/rugi", harga: "Rp. 600.000"),
+        LaporanCard(title: "Laba rugi", harga: "Rp. 600.000"),
         Container(
           height: 8,
           color: lineColor,
         ),
-        LaporanCard(title: "Saldo", harga: "Rp. 6000.000"),
+        LaporanCard(title: "Jurnal Umum", harga: "Rp. 6000.000"),
         Container(
           height: 8,
           color: lineColor,
         ),
-        LaporanCard(title: "Pengeluaran", harga: "Rp. 200.000"),
+        LaporanCard(title: "Kas", harga: "Rp. 200.000"),
         Container(
           height: 8,
           color: lineColor,

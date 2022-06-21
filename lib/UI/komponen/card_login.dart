@@ -3,6 +3,10 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 class CardLogin extends StatelessWidget {
+  final TextEditingController? email;
+  final TextEditingController? password;
+  CardLogin({this.email, this.password});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,34 +22,35 @@ class CardLogin extends StatelessWidget {
           ),
         ],
       ),
-      margin: EdgeInsets.only(left: 32, right: 32),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+      margin: EdgeInsets.symmetric(horizontal: setWidth(32)),
+      padding: EdgeInsets.symmetric(
+          horizontal: setWidth(16), vertical: setHeight(32)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Txt("Selamat Datang",
               style: CustomStyle.txtStyle.clone()
-                ..fontSize(16)
+                ..fontSize(setFont(16))
                 ..textColor(Colors.black)
                 ..fontFamily("Montserrat")
                 ..bold()
                 ..alignment.center()),
           SizedBox(
-            height: 16,
+            height: setHeight(16),
           ),
-          customTextFormField(
-              Icons.person, "Alamat Email", TextInputType.emailAddress, false),
+          customTextFormField(Icons.person, "Alamat Email",
+              TextInputType.emailAddress, false, email!),
           SizedBox(
-            height: 8,
+            height: setHeight(8),
           ),
           customTextFormField(Icons.lock_open, "Kata Sandi",
-              TextInputType.visiblePassword, true),
+              TextInputType.visiblePassword, true, password!),
           SizedBox(
-            height: 16,
+            height: setHeight(16),
           ),
           Txt("Lupa kata sandi?",
               style: CustomStyle.txtStyle.clone()
-                ..fontSize(14)
+                ..fontSize(setFont(14))
                 ..textColor(txtBlueColor)
                 ..bold()
                 ..fontFamily("Montserrat")

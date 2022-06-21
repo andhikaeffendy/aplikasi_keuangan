@@ -12,7 +12,8 @@ class LaporanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: EdgeInsets.symmetric(
+          horizontal: setWidth(16), vertical: setHeight(12)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,16 +30,16 @@ class LaporanCard extends StatelessWidget {
                   "${this.title}",
                   style: CustomStyle.txtStyle.clone()
                     ..textColor(txtHintColor)
-                    ..fontSize(12),
+                    ..fontSize(setFont(12)),
                 ),
                 SizedBox(
-                  height: 4,
+                  height: setHeight(4),
                 ),
                 Txt(
                   "${this.harga}",
                   style: CustomStyle.txtStyle.clone()
                     ..textColor(appBarColor)
-                    ..fontSize(16)
+                    ..fontSize(setFont(16))
                     ..bold()
                     ..fontFamily("Montserrat"),
                 )
