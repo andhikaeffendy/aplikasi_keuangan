@@ -6,8 +6,8 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FormTransaksiController extends GetxController
-    with SingleGetTickerProviderMixin {
+class FormTransaksiController extends GetxController with SingleGetTickerProviderMixin {
+  TextEditingController searchController = TextEditingController();
   List<Tab> myTabs = [
     Tab(
       text: "Pemasukan",
@@ -19,24 +19,50 @@ class FormTransaksiController extends GetxController
   TabController? tabController;
   int index = 0;
   List<Account> listAccount = [];
+  List<Account> filterListAccount = [];
   TextEditingController voucherController = TextEditingController();
   TextEditingController deskripsiController = TextEditingController();
   TextEditingController pemasukanController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController pengeluaranController = TextEditingController();
-  Account? selectedAccount;
+  Account? selectedAccount = Account();
   var isLoading = true;
 
   void controllerListener() {
     index = tabController!.index;
+    if (index == 0) {
+      loadDataAccount(endPoint: "list_account_pasiva");
+    } else {
+      loadDataAccount(endPoint: "list_account_activa");
+    }
     update();
   }
 
-  Future loadDataAccount() async {
-    await ApiListAccount.futureApiListAccount().then((value) {
+  onSearch() {
+    if (searchController.text.isEmpty) {
+      filterListAccount = listAccount;
+    } else {
+      List<Account> _temp = <Account>[];
+      for (var account in listAccount) {
+        if (account.name!.toLowerCase().contains(searchController.text.toLowerCase())) {
+          _temp.add(account);
+        }
+      }
+      filterListAccount = _temp;
+      // filterListAccount = listAccount
+      //     .where((element) =>
+      //         element.name!.toLowerCase().contains(searchController.text.toLowerCase()))
+      //     .toList();
+    }
+    update();
+  }
+
+  Future loadDataAccount({required String endPoint}) async {
+    await ApiListAccount.futureApiListAccount(endPoint: endPoint).then((value) {
       if (value.isSucces()) {
         isLoading = false;
         listAccount = value.data ?? [];
+        filterListAccount = listAccount;
       }
     });
     update();
@@ -80,7 +106,12 @@ class FormTransaksiController extends GetxController
   void onInit() {
     tabController = TabController(length: myTabs.length, vsync: this);
     tabController!.addListener(controllerListener);
-    loadDataAccount();
+    if (index == 0) {
+      loadDataAccount(endPoint: "list_account_pasiva");
+    } else {
+      loadDataAccount(endPoint: "list_account_activa");
+    }
+    searchController.addListener(onSearch);
     super.onInit();
   }
 

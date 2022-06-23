@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
+
 import 'package:applikasi_keuangan/global/error_message.dart';
 import 'package:applikasi_keuangan/global/variable.dart';
 import 'package:applikasi_keuangan/model/Account.dart';
@@ -19,12 +20,10 @@ class ApiListAccount {
       : status = json["status"],
         message = json["message"],
         data = json.containsKey("data")
-            ? List<Account>.from(json["data"].map((x) => Account.fromJson(x)))
-                .toList()
+            ? List<Account>.from(json["data"].map((x) => Account.fromJson(x))).toList()
             : null;
 
-  ApiListAccount.fromStringJson(String stringJson)
-      : this.fromJson(json.decode(stringJson));
+  ApiListAccount.fromStringJson(String stringJson) : this.fromJson(json.decode(stringJson));
 
   Map<String, dynamic> toJson() => {"status": status, "message": message};
 
@@ -32,9 +31,9 @@ class ApiListAccount {
 
   bool isSucces() => status!.toUpperCase() == "SUCCESS";
 
-  static Future<ApiListAccount> futureApiListAccount() async {
+  static Future<ApiListAccount> futureApiListAccount({required String endPoint}) async {
     var dio = Dio();
-    String url = api_url + "users/list_account";
+    String url = api_url + "users/$endPoint";
     try {
       Response response = await dio.get(url);
       print(response.data);
@@ -42,11 +41,9 @@ class ApiListAccount {
     } on DioError catch (e) {
       if (e.response != null) {
         return ApiListAccount(
-            status: "fail",
-            message: ErrorMessage.getMessage(e.response!.statusCode!));
+            status: "fail", message: ErrorMessage.getMessage(e.response!.statusCode!));
       } else {
-        return ApiListAccount(
-            status: "fail", message: ErrorMessage.getMessage(0));
+        return ApiListAccount(status: "fail", message: ErrorMessage.getMessage(0));
       }
     }
   }
@@ -77,11 +74,9 @@ class ApiListAccount {
     } on DioError catch (e) {
       if (e.response != null) {
         return GlobalResponse(
-            status: "fail",
-            message: ErrorMessage.getMessage(e.response!.statusCode!));
+            status: "fail", message: ErrorMessage.getMessage(e.response!.statusCode!));
       } else {
-        return GlobalResponse(
-            status: "fail", message: ErrorMessage.getMessage(0));
+        return GlobalResponse(status: "fail", message: ErrorMessage.getMessage(0));
       }
     }
   }
@@ -98,12 +93,10 @@ class ApiListTransaction {
       : status = json["status"],
         message = json["message"],
         data = json.containsKey("data")
-            ? List<Transaksi>.from(
-                json["data"].map((x) => Transaksi.fromJson(x))).toList()
+            ? List<Transaksi>.from(json["data"].map((x) => Transaksi.fromJson(x))).toList()
             : null;
 
-  ApiListTransaction.fromStringJson(String stringJson)
-      : this.fromJson(json.decode(stringJson));
+  ApiListTransaction.fromStringJson(String stringJson) : this.fromJson(json.decode(stringJson));
 
   Map<String, dynamic> toJson() => {"status": status, "message": message};
 
@@ -111,7 +104,25 @@ class ApiListTransaction {
 
   bool isSucces() => status!.toUpperCase() == "SUCCESS";
 
-  static Future<ApiListTransaction> futureApiListAccount(String token) async {
+  static Future<ApiListTransaction> futureApiListTransaction(String token) async {
+    var dio = Dio();
+    String url = api_url + "users/list_transaction_day";
+    dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + token;
+    try {
+      Response response = await dio.get(url);
+      print("Transaksi Today ${response.data}");
+      return ApiListTransaction.fromStringJson(response.toString());
+    } on DioError catch (e) {
+      if (e.response != null) {
+        return ApiListTransaction(
+            status: "fail", message: ErrorMessage.getMessage(e.response!.statusCode!));
+      } else {
+        return ApiListTransaction(status: "fail", message: ErrorMessage.getMessage(0));
+      }
+    }
+  }
+
+  static Future<ApiListTransaction> futureApiHistoryListTransaction(String token) async {
     var dio = Dio();
     String url = api_url + "users/list_transaction";
     dio.options.headers[HttpHeaders.authorizationHeader] = 'Bearer ' + token;
@@ -122,11 +133,9 @@ class ApiListTransaction {
     } on DioError catch (e) {
       if (e.response != null) {
         return ApiListTransaction(
-            status: "fail",
-            message: ErrorMessage.getMessage(e.response!.statusCode!));
+            status: "fail", message: ErrorMessage.getMessage(e.response!.statusCode!));
       } else {
-        return ApiListTransaction(
-            status: "fail", message: ErrorMessage.getMessage(0));
+        return ApiListTransaction(status: "fail", message: ErrorMessage.getMessage(0));
       }
     }
   }

@@ -30,8 +30,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
-                    } else if (snapshot.connectionState ==
-                            ConnectionState.done &&
+                    } else if (snapshot.connectionState == ConnectionState.done &&
                         snapshot.hasData) {
                       controller.loadDataTransaksi();
                     }
@@ -43,17 +42,23 @@ class _TransaksiPageState extends State<TransaksiPage> {
                             child: ListTile(
                               isThreeLine: true,
                               dense: true,
-                              leading: Text(
-                                "Akun : ${controller.listTransaksi[index].accountId ?? 0}",
+                              title: Text(
+                                "${controller.listTransaksi[index].account!.name ?? ""}",
                                 style: TextStyle(fontSize: 8),
                               ),
-                              subtitle: Text(
-                                "${controller.listTransaksi[index].description}",
-                                style: TextStyle(fontSize: 12),
-                              ),
-                              title: Text(
-                                "${controller.listTransaksi[index].amountDebit == 0 ? "Pengeluaran Rp.${controller.listTransaksi[index].amountCredit}" : "Pemasukan Rp. ${controller.listTransaksi[index].amountDebit}"}",
-                                style: TextStyle(fontSize: 14),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${controller.listTransaksi[index].amountDebit == 0 ? "Pengeluaran Rp.${controller.listTransaksi[index].amountCredit}" : "Pemasukan Rp. ${controller.listTransaksi[index].amountDebit}"}",
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  Text(
+                                    "${controller.listTransaksi[index].description}",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                ],
                               ),
                               trailing: Column(
                                 children: [

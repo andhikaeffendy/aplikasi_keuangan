@@ -1,7 +1,11 @@
 import 'package:applikasi_keuangan/global/variable.dart';
+import 'package:applikasi_keuangan/model/user.dart';
 import 'package:flutter/material.dart';
 
 class CardProfile extends StatefulWidget {
+  final User user;
+
+  const CardProfile({Key? key, required this.user}) : super(key: key);
   @override
   _CardProfileState createState() => _CardProfileState();
 }
@@ -23,26 +27,25 @@ class _CardProfileState extends State<CardProfile> {
         ],
       ),
       margin: EdgeInsets.symmetric(horizontal: setWidth(32)),
-      padding: EdgeInsets.symmetric(
-          horizontal: setWidth(16), vertical: setHeight(32)),
+      padding: EdgeInsets.symmetric(horizontal: setWidth(16), vertical: setHeight(32)),
       child: Column(
         children: [
-          textFormFieldCustom("Nama Akun", "Bumdes"),
+          textFormFieldCustom("Nama Akun", widget.user.name ?? ""),
           SizedBox(
             height: setHeight(16),
           ),
-          textFormFieldCustom("Email", currentUser.email!),
+          textFormFieldCustom("Email", widget.user.email ?? ""),
           SizedBox(
             height: setHeight(16),
           ),
-          textFormFieldCustom("Nomor Ponsel", "+6282198113362"),
+          textFormFieldCustom("Nomor Ponsel", widget.user.phoneNumber ?? ""),
           SizedBox(
             height: setHeight(16),
           ),
-          textFormFieldCustom("Password", "andhika123"),
-          SizedBox(
-            height: setHeight(16),
-          ),
+          // textFormFieldCustom("Password", "andhika123"),
+          // SizedBox(
+          //   height: setHeight(16),
+          // ),
         ],
       ),
     );

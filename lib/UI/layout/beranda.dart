@@ -28,7 +28,7 @@ class BerandaPage extends StatelessWidget {
             )
           ],
           title: Txt(
-            "Bumdes",
+            "SIAP BUMDES",
             style: CustomStyle.txtStyle.clone()..bold(),
           ),
           centerTitle: true,
@@ -40,34 +40,54 @@ class BerandaPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    constraints: BoxConstraints(maxHeight: 80, minHeight: 50),
-                    child: TabBar(
-                      controller: controller.tabController,
-                      labelColor: bgColor,
-                      unselectedLabelColor: txtHintColor,
-                      labelStyle: CustomStyle.textFormFieldStyle,
-                      indicatorColor: Colors.transparent,
-                      tabs: [
-                        Txt("Hari ini"),
-                        Txt("Minggu ini"),
-                        Txt("Bulan ini"),
-                      ],
-                    ),
-                  ),
+                  // Container(
+                  //   constraints: BoxConstraints(maxHeight: 80, minHeight: 50),
+                  //   child: TabBar(
+                  //     controller: controller.tabController,
+                  //     labelColor: bgColor,
+                  //     unselectedLabelColor: txtHintColor,
+                  //     labelStyle: CustomStyle.textFormFieldStyle,
+                  //     indicatorColor: Colors.transparent,
+                  //     tabs: [
+                  //       Txt("Hari ini"),
+                  //       Txt("Minggu ini"),
+                  //       Txt("Bulan ini"),
+                  //     ],
+                  //   ),
+                  // ),
                   Container(
                     height: 8,
                     color: lineColor,
                   ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    child: Txt(
+                      "Transaksi Terbaru",
+                      style: CustomStyle.txtStyle.clone()
+                        ..bold()
+                        ..fontSize(16)
+                        ..textColor(Colors.black),
+                    ),
+                  ),
                   Expanded(
-                      child: TabBarView(
-                    controller: controller.tabController,
-                    children: [
-                      LaporanView(id: 1),
-                      LaporanView(id: 2),
-                      LaporanView(id: 3),
-                    ],
-                  ))
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.lisTransaksi.length,
+                        itemBuilder: (context, index) {
+                          return LaporanView(
+                            id: 1,
+                            transaksi: controller.lisTransaksi[index],
+                          );
+                        }),
+                    //     TabBarView(
+                    //   controller: controller.tabController,
+                    //   children: [
+                    //     ,
+                    //     LaporanView(id: 2),
+                    //     LaporanView(id: 3),
+                    //   ],
+                    // ),
+                  ),
                 ],
               ),
             ),
@@ -76,8 +96,7 @@ class BerandaPage extends StatelessWidget {
                 right: 0,
                 left: 0,
                 child: GestureDetector(
-                    onTap: () =>
-                        Navigator.of(context).pushNamed(Routes.addTransaksi),
+                    onTap: () => Navigator.of(context).pushNamed(Routes.addTransaksi),
                     child: customButton("+ Tambah Transaksi")))
           ],
         ),

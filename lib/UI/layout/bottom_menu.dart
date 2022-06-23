@@ -1,5 +1,6 @@
 import 'package:applikasi_keuangan/UI/komponen/menu.dart';
 import 'package:applikasi_keuangan/UI/layout/beranda.dart';
+import 'package:applikasi_keuangan/UI/layout/laporan_keuangan.dart';
 import 'package:applikasi_keuangan/UI/layout/profile.dart';
 import 'package:applikasi_keuangan/UI/layout/transaksi.dart';
 import 'package:applikasi_keuangan/controller/menu_controller.dart';

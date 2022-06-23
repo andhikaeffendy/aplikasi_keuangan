@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 8,
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(
+                  backgroundImage: NetworkImage(controller.user.photo ??
                       "https://www.vhv.rs/dpng/d/426-4264903_user-avatar-png-picture-avatar-profile-dummy-transparent.png"),
                   maxRadius: 40,
                   minRadius: 35,
@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 8,
                 ),
                 Txt(
-                  "Bumdes",
+                  controller.user.name ?? "",
                   style: CustomStyle.txtStyle.clone()..bold(),
                 ),
                 SizedBox(
@@ -74,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   height: 16,
                 ),
-                CardProfile(),
+                CardProfile(user: controller.user),
                 SizedBox(
                   height: 24,
                 ),
