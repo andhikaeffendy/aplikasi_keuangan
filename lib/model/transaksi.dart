@@ -9,7 +9,7 @@ class Transaksi {
   String? description;
   int? amountDebit;
   int? amountCredit;
-  User? account;
+  dynamic account;
 
   Transaksi(
       {this.id,
@@ -31,7 +31,13 @@ class Transaksi {
         description = json.containsKey("description") ? json["description"] : null,
         amountDebit = json.containsKey("amount_debit") ? json["amount_debit"] : null,
         amountCredit = json.containsKey("amount_credit") ? json["amount_credit"] : null,
-        account = json.containsKey("account") ? User.fromJson(json['account']) : User();
+        account = json.containsKey("account")
+            ? json['account'] is String
+                ? json['account']
+                : User.fromJson(json['account'])
+            : json['account'] is String
+                ? ""
+                : User();
 
   Map<String, dynamic> toJson() => {
         "id": id,

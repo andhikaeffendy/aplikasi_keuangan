@@ -8,7 +8,7 @@ class TransaksiController extends GetxController {
   var isLoading = true;
 
   Future loadDataTransaksi() async {
-    await ApiListTransaction.futureApiListTransaction(Session().getToken()).then((value) {
+    await ApiListTransaction.futureApiHistoryListTransaction(Session().getToken()).then((value) {
       if (value.isSucces()) {
         listTransaksi = value.data ?? [];
       }

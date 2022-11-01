@@ -43,7 +43,7 @@ class _TransaksiPageState extends State<TransaksiPage> {
                               isThreeLine: true,
                               dense: true,
                               title: Text(
-                                "${controller.listTransaksi[index].account!.name ?? ""}",
+                                "${controller.listTransaksi[index].account is String ? controller.listTransaksi[index].account : controller.listTransaksi[index].account!.name ?? ""}",
                                 style: TextStyle(fontSize: 8),
                               ),
                               subtitle: Column(
